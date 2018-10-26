@@ -15,6 +15,14 @@ public abstract class Cell {
         this.l = l;
     }
 
+    public Cell(Position position) {
+        this.position = position;
+    }
+
+    public Cell() {
+
+    }
+
     public static Cell newInstance(char type) {
         switch (type){
 
@@ -25,6 +33,8 @@ public abstract class Cell {
             case 'M' : return new Mouse(l,c);
 
             case '@' : return new Snake(l,c);
+
+            case '*' : return new Snake(l,c);
 
             default: return null;
 

@@ -42,6 +42,17 @@ public class Level {
     }
 
 
+    //todo
+
+    /**
+     * Snake is dead when bumps into a wall or another snake body
+     *
+     * @return true if dead, false if alive
+     */
+    public boolean snakeIsDead() {
+        return true;
+    }
+
     /**
      * Set the position of the cell
      *
@@ -110,22 +121,13 @@ public class Level {
 
     }
 
-    /**
-     * Snake is dead when bumps into a wall or another snake body
-     *
-     * @return true if dead, false if alive
-     */
-    public boolean snakeIsDead() {
-        return true;
-    }
-
-    //todo
 
     /**
      * @param observer
      */
     public void setObserver(Observer observer) {
 
+        //todo
     }
 
     /**
@@ -133,9 +135,8 @@ public class Level {
      *
      * @param game
      */
-    public void init(Game game) throws Loader.LevelFormatException {
-        Level currLevel = new Level(game.loadNextLevel().levelNumber, game.loadNextLevel().height, game.loadNextLevel().width);
-        currLevel.putCell(game.loadNextLevel().cell.getL(), game.loadNextLevel().cell.getC(), game.loadNextLevel().cell);
+    public void init(Game game) {
+
     }
 
     public interface Observer {
