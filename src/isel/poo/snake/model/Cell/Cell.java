@@ -8,6 +8,8 @@ public abstract class Cell {
     protected static int c;
     protected char type;
     protected boolean isEvil;
+    protected boolean isAlive;
+    public int snakeSize;
 
     protected Position position;
 
@@ -34,19 +36,13 @@ public abstract class Cell {
 
             case 'M' : return new Mouse(l,c);
 
-            case '@' : return new Snake(l,c, false);
+            case '@' : return new Snake(l,c, false, true);
 
-            case '*' : return new Snake(l,c,true);
+            case '*' : return new Snake(l,c,true, true);
 
             default: return null;
 
         }
-    }
-
-    public Cell getCellAt(int l, int c) {
-        if(getPosition().l == l && getPosition().c == c)
-            return this;
-        return null;
     }
 
     /**
@@ -78,8 +74,6 @@ public abstract class Cell {
      * @param position the new position.
      */
     public void setPositionAt(Position position) {
-        if (position == null)
-            throw new IllegalArgumentException();
         this.position = position;
     }
 
@@ -98,5 +92,9 @@ public abstract class Cell {
 
     public boolean isEvil(){
         return isEvil;
+    }
+
+    public boolean isAlive(){
+        return isAlive;
     }
 }

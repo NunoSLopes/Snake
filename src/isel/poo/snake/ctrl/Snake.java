@@ -7,7 +7,7 @@ import isel.leic.pg.Console;
 import isel.poo.snake.model.*;
 import isel.poo.snake.model.Cell.Cell;
 import isel.poo.snake.view.CellTile.CellTile;
-import isel.poo.snake.view.EmptyTile;
+import isel.poo.snake.view.CellTile.EmptyTile;
 import isel.poo.snake.view.StatusPanel;
 
 import static java.awt.event.KeyEvent.*;
