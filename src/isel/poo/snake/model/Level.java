@@ -1,7 +1,10 @@
 package isel.poo.snake.model;
 
+import isel.poo.snake.ctrl.Snake;
+import isel.poo.snake.model.Cell.Apple;
 import isel.poo.snake.model.Cell.Cell;
-import isel.poo.snake.model.Cell.Snake;
+import isel.poo.snake.model.Cell.Mouse;
+import isel.poo.snake.model.Cell.SnakeTail;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -10,11 +13,13 @@ import java.util.LinkedList;
 public class Level {
 
     private final int levelNumber, height, width;
-    private final int apples = 10;
+    protected final int applesPoint=4,mousePoints = 10;
+    private int apples = 10;
     private LinkedList<Cell> snake;
     private ArrayList<Cell> gameArea;
     private Cell cell;
     private int dirL, dirC;
+    protected Observer observer;
 
     public Level(int levelNumber, int height, int width) {
 
@@ -67,6 +72,7 @@ public class Level {
 
         cell.setPositionAt(l, c);
         gameArea.add(cell);
+        observer.cellCreated(l,c,cell);
 
     }
 
@@ -120,18 +126,14 @@ public class Level {
     public void step() {
 
         cell.setPositionAt(cell.getPosition().l + dirL, cell.getPosition().c + dirC);
-
-
+        observer.cellUpdated(cell.getL(),cell.getC(),cell);
+        checkFood(cell.getL(),cell.getC());
     }
 
 
     /**
      * @param observer
      */
-    public void setObserver(Observer observer) {
-
-        //todo
-    }
 
     /**
      * Initiate the game
@@ -146,6 +148,12 @@ public class Level {
 
     }
 
+    public void setObserver(Observer observer) {
+
+        this.observer = observer;
+
+    }
+
     public interface Observer {
         void cellUpdated(int l, int c, Cell cell);
 
@@ -156,5 +164,33 @@ public class Level {
         void cellMoved(int fromL, int fromC, int toL, int toC, Cell cell);
 
         void applesUpdated(int apples);
+    }
+
+    private void checkFood(int l, int c){
+
+        for(int i = 0 ; i < gameArea.size(); ++i){
+            if (gameArea.get(i) instanceof Apple){
+                if(gameArea.get(i).getC()== c && gameArea.get(i).getL()==l){
+                    --apples;
+                    observer.applesUpdated(apples);
+                    snakeGrow(applesPoint);
+                    observer.cellUpdated(l,c,gameArea.get(i));
+
+                }
+            }else if( gameArea.get(i) instanceof Mouse){
+                if(gameArea.get(i).getC()== c && gameArea.get(i).getL()==l){
+
+                    snakeGrow(mousePoints);
+                    observer.cellUpdated(l,c,gameArea.get(i));
+
+                }
+            }
+        }
+    }
+
+    public void snakeGrow(int size){
+        for (int j = 0; j < size; ++j) {
+            snake.addLast(new SnakeTail());
+        }
     }
 }
