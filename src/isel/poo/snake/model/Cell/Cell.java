@@ -6,6 +6,8 @@ public abstract class Cell {
 
     protected static int l;
     protected static int c;
+    protected char type;
+    protected boolean isEvil;
 
     protected Position position;
 
@@ -32,9 +34,9 @@ public abstract class Cell {
 
             case 'M' : return new Mouse(l,c);
 
-            case '@' : return new Snake(l,c);
+            case '@' : return new Snake(l,c, false);
 
-            case '*' : return new Snake(l,c);
+            case '*' : return new Snake(l,c,true);
 
             default: return null;
 
@@ -88,5 +90,13 @@ public abstract class Cell {
      */
     public void setPositionAt(int x, int y) {
         setPositionAt(new Position(x, y));
+    }
+
+    public char getType() {
+            return type;
+    }
+
+    public boolean isEvil(){
+        return isEvil;
     }
 }

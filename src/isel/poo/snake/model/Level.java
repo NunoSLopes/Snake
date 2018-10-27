@@ -1,16 +1,18 @@
 package isel.poo.snake.model;
 
 import isel.poo.snake.model.Cell.Cell;
+import isel.poo.snake.model.Cell.Snake;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+
 
 public class Level {
 
     private final int levelNumber, height, width;
     private final int apples = 10;
-    private final LinkedList<Cell> snake = new LinkedList<>();
-    private final ArrayList<Cell> gameArea = new ArrayList<>();
+    private LinkedList<Cell> snake;
+    private ArrayList<Cell> gameArea;
     private Cell cell;
     private int dirL, dirC;
 
@@ -119,6 +121,7 @@ public class Level {
 
         cell.setPositionAt(cell.getPosition().l + dirL, cell.getPosition().c + dirC);
 
+
     }
 
 
@@ -136,6 +139,10 @@ public class Level {
      * @param game
      */
     public void init(Game game) {
+
+        snake = new LinkedList<>();
+        gameArea = new ArrayList<>();
+
 
     }
 
