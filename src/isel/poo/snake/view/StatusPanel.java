@@ -6,39 +6,37 @@ import isel.poo.console.FieldView;
 import isel.poo.console.ParentView;
 
 
-public class StatusPanel {
-    public static final int WIDTH = 0;
+public class StatusPanel extends ParentView{
+    public static int WIDTH = 20;
 
-    protected FieldView fViewLevelLABEL = new FieldView("LEVEL",0,0 , "LEVEL");
-    protected FieldView fViewLevelValue = new FieldView(2,0 , "");
-    protected FieldView fViewAppleslABEL = new FieldView("APPLES",6,0 , "APPLES");
-    protected FieldView fViewApplesValue = new FieldView(8,0 , "");
-    protected FieldView fViewScorelABEL = new FieldView("SCORE",14,0 , "SCORE");
-    protected FieldView fViewScoreValue = new FieldView(16,0 , "");
-    protected ParentView pView;
+    protected FieldView fViewLevelLABEL = new FieldView("LEVEL",0,0 , "");
+    //protected FieldView fViewLevelValue = new FieldView(2,0 , "");
+    protected FieldView fViewApplesLABEL = new FieldView("APPLES",6,0 , "");
+    //protected FieldView fViewApplesValue = new FieldView(8,0 , "");
+    protected FieldView fViewScoreLABEL = new FieldView("SCORE",14,0 , "");
+    //protected FieldView fViewScoreValue = new FieldView(16,0 , "");
+
 
 
 
 
     public StatusPanel(int winWidth) {
-        pView = new ParentView(0,(2/3)*winWidth, Console.BLACK);
-        pView.addView(fViewLevelLABEL);
-        pView.addView(fViewLevelValue);
-        pView.addView(fViewAppleslABEL);
-        pView.addView(fViewApplesValue);
-        pView.addView(fViewScorelABEL);
-        pView.addView(fViewScoreValue);
+
+        addView(fViewLevelLABEL);
+        addView(fViewApplesLABEL);
+        addView(fViewScoreLABEL);
+        repaint();
     }
 
     public void setLevel(int number) {
-        fViewLevelValue.setValue(number);
+        fViewLevelLABEL.setValue(""+number);
     }
 
     public void setApples(int remainingApples) {
-        fViewApplesValue.setValue(remainingApples);
+        fViewApplesLABEL.setValue(""+remainingApples);
     }
 
     public void setScore(int score) {
-        fViewScoreValue.setValue(score);
+        fViewScoreLABEL.setValue(""+score);
     }
 }

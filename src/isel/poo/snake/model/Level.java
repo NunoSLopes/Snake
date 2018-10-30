@@ -135,7 +135,7 @@ public class Level {
 
     public void step() {
 
-        if (!checkCollision(dirSnake)) {
+        /*if (!checkCollision(dirSnake)) {
 
             Cell deleted = snake.removeFirst(); //remove old head
             snake.addFirst(new SnakeTail(deleted.getPosition())); //add Tail in position of old head
@@ -150,7 +150,7 @@ public class Level {
             --growthLeft;
         }else{
            gameOver = true;
-        }
+        }*/
     }
 
     private boolean checkCollision(Snake snk) {

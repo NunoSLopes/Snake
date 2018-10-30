@@ -9,10 +9,10 @@ public class ObstacleTile extends CellTile {
         super(cell);
     }
 
+    @Override
     public void paint(){
 
-        Console.color(Console.BROWN,Console.DARK_GRAY);
-        print(SIDE, SIDE, " ");
-        super.paint();
+        Console.color(Console.BROWN,Console.BROWN);
+        print(SIDE, SIDE, "");
     }
 }
