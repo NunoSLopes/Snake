@@ -1,42 +1,46 @@
 package isel.poo.snake.view;
 
 
+
 import isel.leic.pg.Console;
 import isel.poo.console.FieldView;
 import isel.poo.console.ParentView;
+import isel.poo.console.tile.TilePanel;
 
 
-public class StatusPanel extends ParentView{
-    public static int WIDTH = 20;
+public class StatusPanel extends ParentView {
 
-    protected FieldView fViewLevelLABEL = new FieldView("LEVEL",0,0 , "");
-    //protected FieldView fViewLevelValue = new FieldView(2,0 , "");
-    protected FieldView fViewApplesLABEL = new FieldView("APPLES",6,0 , "");
-    //protected FieldView fViewApplesValue = new FieldView(8,0 , "");
-    protected FieldView fViewScoreLABEL = new FieldView("SCORE",14,0 , "");
-    //protected FieldView fViewScoreValue = new FieldView(16,0 , "");
+    public static final int HEIGHT = 10, WIDTH = 7 ;
 
-
-
+    protected FieldView fViewLevel = new FieldView("Level ",1,0 , "---");
+    protected FieldView fViewApples = new FieldView("Apples",4,0 , "---");
+    protected FieldView fViewScore = new FieldView("Score ",7,0 , "---");
 
 
     public StatusPanel(int winWidth) {
-
-        addView(fViewLevelLABEL);
-        addView(fViewApplesLABEL);
-        addView(fViewScoreLABEL);
-        repaint();
+        super(0,winWidth,HEIGHT,WIDTH,Console.BLACK);
+        this.addView(fViewLevel);
+        this.addView(fViewApples);
+        this.addView(fViewScore);
     }
 
     public void setLevel(int number) {
-        fViewLevelLABEL.setValue(""+number);
+        fViewLevel.setValue(number);
     }
 
     public void setApples(int remainingApples) {
-        fViewApplesLABEL.setValue(""+remainingApples);
+        fViewApples.setValue(remainingApples);
     }
 
     public void setScore(int score) {
-        fViewScoreLABEL.setValue(""+score);
+        fViewScore.setValue(score);
     }
+
+    public void paint(){
+        clear();
+        fViewLevel.paint();
+        fViewApples.paint();
+        fViewScore.paint();
+    }
+
 }

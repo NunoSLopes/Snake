@@ -1,6 +1,6 @@
 package isel.poo.snake.model;
 
-import isel.poo.snake.model.Cell.Cell;
+import isel.poo.snake.model.Cells.Cell;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;

@@ -5,9 +5,9 @@ import isel.poo.console.tile.Tile;
 import isel.poo.console.tile.TilePanel;
 import isel.leic.pg.Console;
 import isel.poo.snake.model.*;
-import isel.poo.snake.model.Cell.Cell;
-import isel.poo.snake.view.CellTile.CellTile;
-import isel.poo.snake.view.CellTile.EmptyTile;
+import isel.poo.snake.model.Cells.Cell;
+import isel.poo.snake.view.Tiles.CellTile;
+import isel.poo.snake.view.Tiles.EmptyTile;
 import isel.poo.snake.view.StatusPanel;
 
 import static java.awt.event.KeyEvent.*;
@@ -100,7 +100,7 @@ public class Snake {
         // Game.Listener
         @Override
         public void scoreUpdated(int score) { status.setScore( score ); }
-        // Level.Observer
+        // Level.Listener
         @Override
         public void cellUpdated(int l, int c, Cell cell) { view.getTile(l,c).repaint(); }
         @Override
