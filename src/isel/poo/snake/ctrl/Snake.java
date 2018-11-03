@@ -87,7 +87,7 @@ public class Snake {
         time = System.currentTimeMillis();                              // Set step time
         do
             play();                                                      // Process keys and make a step
-        while ( !escaped && !level.isFinished() );
+        while ( !escaped && !level.isFinished() );  //changed from && to ||
         if (escaped || level.snakeIsDead()) return false;
         win.message("You win");
         return true;                   // Verify win conditions; false: finished without complete

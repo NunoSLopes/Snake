@@ -16,6 +16,10 @@ public class Apple extends Cell {
         super();
     }
 
+    public Apple(Position position) {
+        this.position = position;
+    }
+
     public char getType(){
         return type;
     }
