@@ -5,7 +5,6 @@ package isel.poo.snake.view;
 import isel.leic.pg.Console;
 import isel.poo.console.FieldView;
 import isel.poo.console.ParentView;
-import isel.poo.console.tile.TilePanel;
 
 
 public class StatusPanel extends ParentView {

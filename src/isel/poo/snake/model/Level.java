@@ -1,6 +1,5 @@
 package isel.poo.snake.model;
 
-import isel.poo.snake.ctrl.Snake;
 import isel.poo.snake.model.Cells.*;
 
 import java.util.ArrayList;
@@ -10,15 +9,17 @@ import java.util.LinkedList;
 public class Level {
 
     private final int levelNumber, height, width;
+    private int growthLeft = 4, movesCounter = 0, apples = 10, mouseMove = 0, evilGrowth = 4;
     private static final int APPLESPOINTS=4 , MOUSEPOINTS = 10, MINTAILS = 4;
-    private int apples = 10;
     private Cell snakeHead;
-    private static LinkedList<Cell> snakeBody = new LinkedList<>();
+    private static LinkedList<Cell> snakeBody ;
     private ArrayList<Cell> gameArea = new ArrayList<>();
+    private ArrayList<Cell> mouseArrayList = new ArrayList<>();
+    private ArrayList<Cell> evilSnakeHead = new ArrayList<>();
     private Observer observer;
-    private int growthLeft = 4, movesCounter = 0;
     private boolean snakeIsDead = false, gameEnded = false;
     private Dir snakeDirection = Dir.UP;
+    private Dir autoDir = Dir.RIGHT;
     private Game game;
 
     public Level(int levelNumber, int height, int width) {
@@ -75,7 +76,13 @@ public class Level {
 
         cell.setPositionAt(l, c);
 
-        if (cell instanceof SnakeHead) snakeHead = cell;
+        if (cell instanceof SnakeHead && !cell.isEvil()) snakeHead = cell;
+
+        if (cell instanceof SnakeHead && cell.isEvil()){
+            evilSnakeHead.add(cell);
+        }
+
+        if (cell instanceof Mouse) mouseArrayList.add(cell);
 
         gameArea.add(cell);
 
@@ -123,17 +130,15 @@ public class Level {
         int newPosL = snakeHead.getL()+snakeDirection.l;
         int newPosC = snakeHead.getC()+snakeDirection.c;
 
-        if (newPosL < 0) newPosL = height-1;
-        else if (newPosL > height-1) newPosL = 0;
-        else if (newPosC < 0) newPosC = width-1;
-        else if (newPosC > width-1) newPosC = 0;
+        Position newPos = checkLimits(newPosL,newPosC);
 
-        Position newPos = new Position(newPosL, newPosC); //calculate new position
+         //calculate new position
         if (!checkCollision(newPos)){
             snakeHead.setPositionAt(newPos); //set new position
             observer.cellMoved(oldPos.l, oldPos.c, newPos.l, newPos.c, snakeHead); //call observer
             addTail(oldPos); //
             ++movesCounter;
+            ++mouseMove;
             return true;
         } else {
             snakeHead = new SnakeHead(false, false);
@@ -150,9 +155,20 @@ public class Level {
         observer.cellCreated(position.l, position.c, tail);
     }
 
+
     public void step() {
 
-//        snakeHead = snakeBody.getFirst();
+        if (evilSnakeHead != null) {
+            autoSnakeStep();
+
+        }
+
+        if (mouseArrayList != null && mouseMove == 4){
+            for (Cell mouse: mouseArrayList) {
+                autoMouseStep(mouse);
+            }
+            mouseMove = 0;
+        }
 
         if (!checkCollision(snakeHead.getPosition())) {
             if(moveSnake()) {
@@ -174,6 +190,102 @@ public class Level {
             snakeIsDead = deletedLast();
         }
 
+    }
+
+    private void autoMouseStep(Cell mouse) {
+
+        boolean hasStepped = false;
+
+        do {
+            int randomDir = (int) (Math.random()*4);
+            Position oldPos = mouse.getPosition(); //get Head Position
+            int newPosL = mouse.getL() + autoDir.l;
+            int newPosC = mouse.getC() + autoDir.c;
+
+            Position newPos = checkLimits(newPosL, newPosC); //calculate new position
+
+            if (!checkCollision(newPos)) {
+                mouse.setPositionAt(newPos); //set new position
+                observer.cellMoved(oldPos.l, oldPos.c, newPos.l, newPos.c, mouse); //call observer
+                hasStepped = true;
+            } else {
+                autoDir = randomDirection(randomDir);
+
+                if (autoDir == null)
+                    hasStepped = true;
+            }
+        }while (!hasStepped);
+
+    }
+
+    private Position checkLimits(int newPosL, int newPosC){
+        if (newPosL < 0) newPosL = height-1;
+        else if (newPosL > height-1) newPosL = 0;
+        else if (newPosC < 0) newPosC = width-1;
+        else if (newPosC > width-1) newPosC = 0;
+
+        return  new Position(newPosL, newPosC);
+    }
+
+    private void autoSnakeStep() {
+
+        boolean hasStepped = false;
+
+        Position newPos, oldPos;
+        for (Cell snake: evilSnakeHead) {
+            oldPos = snake.getPosition(); //get Head Position
+
+            int counter = 1;
+
+            do {
+
+                int newPosL = oldPos.l + autoDir.l;
+                int newPosC = oldPos.c + autoDir.c;
+
+                newPos = checkLimits(newPosL, newPosC); //calculate new position
+                if (!checkCollision(newPos)) {
+                    snake.setPositionAt(newPos); //set new position
+                    observer.cellMoved(oldPos.l, oldPos.c, newPos.l, newPos.c, snake); //call observer
+                    addTail(oldPos); //
+                    checkFood(snake.getPosition());
+                    if (evilGrowth <= 0)
+                        deletedLast();
+
+                    evilGrowth = evilGrowth > 0 ? --evilGrowth : 0;
+                    hasStepped = true;
+                } else {
+                    autoDir = randomDirection(counter);
+
+                    ++counter;
+
+                    if (autoDir == null)
+                        break;
+                }
+            } while (!hasStepped);
+
+            if (!hasStepped) {
+
+                snakeHead = new SnakeHead(true, false);
+                snakeHead.setPositionAt(oldPos);
+                observer.cellCreated(oldPos.l, oldPos.c, snakeHead);
+
+            }
+        }
+    }
+
+    private Dir randomDirection(int choose) {
+
+        switch(choose){
+            case 1 : return Dir.UP;
+
+            case 2 : return Dir.LEFT;
+
+            case 3 : return Dir.DOWN;
+
+            case 4 : return Dir.RIGHT;
+
+            default: return null;
+        }
     }
 
     private boolean deletedLast() {
@@ -223,6 +335,7 @@ public class Level {
      */
     public void init(Game game) {
 
+        snakeBody = new LinkedList<>();
         snakeIsDead = false;
         gameEnded = false;
         movesCounter = 0;
@@ -314,6 +427,6 @@ public class Level {
     }
 
     public static int setSize(){
-        return snakeBody.size();
+        return snakeBody == null ? 0 : snakeBody.size();
     }
 }

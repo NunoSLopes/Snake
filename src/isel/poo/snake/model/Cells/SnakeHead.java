@@ -14,12 +14,11 @@ public class SnakeHead extends Cell {
         isEvil = evil;
         isAlive = alive;
         snakeSize = Level.setSize();
-        if(evil)
-            type='*';
-        else
-
-            type= alive? '@': 'X';
-
+        if(evil) {
+            type = '*';
+        }else {
+            type = alive ? '@' : 'X';
+        }
     }
 
     public SnakeHead(Position position){
