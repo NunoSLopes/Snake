@@ -4,10 +4,10 @@
     <list default="true" id="4a3232c9-8964-4dc5-bbae-7ab24c2b0c81" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Snake/isel/poo/snake/model/Level.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Snake/isel/poo/snake/model/Level.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/isel/poo/snake/model/Cells/SnakeHead.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/isel/poo/snake/model/Cells/SnakeHead.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/isel/poo/snake/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/isel/poo/snake/model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Snake/isel/poo/snake/view/StatusPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Snake/isel/poo/snake/view/StatusPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Snake/isel/poo/snake/view/Tiles/SnakeHeadCellTile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Snake/isel/poo/snake/view/Tiles/SnakeHeadCellTile.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/isel/poo/snake/model/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/isel/poo/snake/model/Level.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/isel/poo/snake/view/StatusPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/isel/poo/snake/view/StatusPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/isel/poo/snake/view/Tiles/SnakeHeadCellTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/isel/poo/snake/view/Tiles/SnakeHeadCellTile.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,21 +20,22 @@
     <session id="2076699693">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="11" />
+          <entry key="project.closed" value="12" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.1" value="4" />
+          <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.8" value="1" />
           <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="11" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="23" />
           <entry key="html" value="1" />
-          <entry key="java" value="181" />
+          <entry key="java" value="185" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
@@ -42,20 +43,20 @@
         <counts>
           <entry key="CLASS" value="23" />
           <entry key="HTML" value="1" />
-          <entry key="JAVA" value="181" />
+          <entry key="JAVA" value="185" />
           <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="24" />
-          <entry key="java" value="7403" />
+          <entry key="java" value="7598" />
           <entry key="txt" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="7403" />
+          <entry key="JAVA" value="7598" />
           <entry key="PLAIN_TEXT" value="26" />
         </counts>
       </usages-collector>
@@ -107,27 +108,27 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/isel/poo/snake/model/Level.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="17" column="62" selection-start-line="17" selection-start-column="62" selection-end-line="17" selection-end-column="62" />
+            <state relative-caret-position="-326">
+              <caret line="372" selection-start-line="372" selection-end-line="372" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/isel/poo/snake/model/Cells/Cell.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="181">
+              <caret line="67" selection-start-line="67" selection-end-line="67" />
               <folding>
-                <element signature="e#782#941#0" />
-                <element signature="e#1195#1372#0" />
-                <element signature="e#1378#1514#0" />
-                <element signature="e#1589#1747#0" />
-                <element signature="e#2093#2239#0" />
-                <element signature="e#2093#2514#0" />
-                <element signature="e#2520#2616#0" />
-                <element signature="e#2520#3051#0" />
-                <element signature="e#3057#3895#0" />
-                <element signature="e#7720#8067#0" />
-                <element signature="e#8073#8905#0" />
-                <element signature="e#8911#8973#0" />
-                <element signature="e#9198#9284#0" />
-                <element signature="e#9290#9584#0" />
-                <element signature="e#9590#11193#0" />
-                <element signature="e#11199#11915#0" />
-                <element signature="e#12162#12163#0" expanded="true" />
-                <element signature="e#12225#12226#0" expanded="true" />
+                <element signature="e#487#488#0" expanded="true" />
+                <element signature="e#527#528#0" expanded="true" />
+                <element signature="e#1063#1064#0" expanded="true" />
+                <element signature="e#1096#1097#0" expanded="true" />
+                <element signature="e#1224#1225#0" expanded="true" />
+                <element signature="e#1257#1258#0" expanded="true" />
+                <element signature="e#1414#1415#0" expanded="true" />
+                <element signature="e#1927#1928#0" expanded="true" />
+                <element signature="e#1956#1957#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -137,7 +138,42 @@
         <entry file="file://$PROJECT_DIR$/src/isel/poo/snake/model/Cells/SnakeTail.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="25" selection-start-line="25" selection-end-line="26" selection-end-column="8" />
+              <caret line="25" column="26" lean-forward="true" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/isel/poo/snake/model/Cells/SnakeHead.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/isel/poo/snake/view/Tiles/SnakeHeadCellTile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="17" column="56" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/isel/poo/snake/view/Tiles/CellTile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#422#423#0" expanded="true" />
+                <element signature="e#462#463#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -200,10 +236,10 @@
         <option value="$PROJECT_DIR$/src/isel/poo/snake/ctrl/Snake.java" />
         <option value="$PROJECT_DIR$/levels.txt" />
         <option value="$PROJECT_DIR$/src/isel/poo/snake/model/Cells/Cell.java" />
-        <option value="$PROJECT_DIR$/src/isel/poo/snake/view/Tiles/SnakeHeadCellTile.java" />
         <option value="$PROJECT_DIR$/src/isel/poo/snake/model/Cells/SnakeHead.java" />
         <option value="$PROJECT_DIR$/src/isel/poo/snake/model/Game.java" />
         <option value="$PROJECT_DIR$/src/isel/poo/snake/view/StatusPanel.java" />
+        <option value="$PROJECT_DIR$/src/isel/poo/snake/view/Tiles/SnakeHeadCellTile.java" />
         <option value="$PROJECT_DIR$/src/isel/poo/snake/model/Level.java" />
       </list>
     </option>
@@ -214,10 +250,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="952" />
-    <option name="width" value="977" />
-    <option name="height" value="1038" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="951" />
+    <option name="width" value="978" />
+    <option name="height" value="1039" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -227,6 +263,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -298,8 +336,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -310,7 +346,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541289053122" />
-    <property name="last_opened_file_path" value="$USER_HOME$/IdeaProjects/POO/robots" />
+    <property name="last_opened_file_path" value="D:/POO_Prof/robots" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -399,11 +435,12 @@
       <workItem from="1540670769464" duration="1421000" />
       <workItem from="1541255605355" duration="9877000" />
       <workItem from="1541280257028" duration="7912000" />
+      <workItem from="1541445192636" duration="2271000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48270000" />
+    <option name="totallyTimeSpent" value="50541000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -416,8 +453,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25100672" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1261745" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -426,8 +464,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32907802" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32907802" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49932885" weight="0.40315637" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33333334" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49932885" weight="0.39167863" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32907802" />
@@ -491,11 +529,24 @@
       <configuration name="Application">
         <watch expression="width" language="JAVA" />
         <watch expression="counter" language="JAVA" />
+        <watch expression="gameArea.get(i).getL()" language="JAVA" />
+        <watch expression="gameArea.get(i).getC()" language="JAVA" />
+        <watch expression="gameArea.get(i).getC()" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
+      <expression>
+        <expression-string>gameArea.get(i).getC()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>gameArea.get(i).getL()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>counter</expression-string>
         <language-id>JAVA</language-id>
@@ -528,21 +579,6 @@
       </expression>
       <expression>
         <expression-string>pos.l</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>gameArea.get(i).getL()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>gameArea.get(i).getC()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>checkCollision(snakeHead.getPosition())</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -641,10 +677,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="e#467#468#0" expanded="true" />
-            <element signature="e#506#507#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -705,34 +737,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/isel/poo/snake/view/Tiles/CellTile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#422#423#0" expanded="true" />
-            <element signature="e#462#463#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/isel/poo/snake/model/Cells/SnakeHead.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#538#539#0" expanded="true" />
-            <element signature="e#569#570#0" expanded="true" />
-            <element signature="e#597#598#0" expanded="true" />
-            <element signature="e#624#625#0" expanded="true" />
-            <element signature="e#660#661#0" expanded="true" />
-            <element signature="e#709#710#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/isel/poo/snake/model/Cells/Obstacle.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -770,13 +774,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/isel/poo/snake/view/Tiles/SnakeHeadCellTile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/isel/poo/snake/view/Tiles/SnakeTailTile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -808,7 +805,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/isel/poo/snake/model/Cells/Cell.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="822">
+        <state relative-caret-position="181">
           <caret line="67" selection-start-line="67" selection-end-line="67" />
           <folding>
             <element signature="e#487#488#0" expanded="true" />
@@ -824,37 +821,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/isel/poo/snake/view/Tiles/CellTile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#422#423#0" expanded="true" />
+            <element signature="e#462#463#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/isel/poo/snake/model/Cells/SnakeTail.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="25" selection-start-line="25" selection-end-line="26" selection-end-column="8" />
+          <caret line="25" column="26" lean-forward="true" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/isel/poo/snake/model/Cells/SnakeHead.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/isel/poo/snake/view/Tiles/SnakeHeadCellTile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="17" column="56" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/isel/poo/snake/model/Level.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="17" column="62" selection-start-line="17" selection-start-column="62" selection-end-line="17" selection-end-column="62" />
-          <folding>
-            <element signature="e#782#941#0" />
-            <element signature="e#1195#1372#0" />
-            <element signature="e#1378#1514#0" />
-            <element signature="e#1589#1747#0" />
-            <element signature="e#2093#2239#0" />
-            <element signature="e#2093#2514#0" />
-            <element signature="e#2520#2616#0" />
-            <element signature="e#2520#3051#0" />
-            <element signature="e#3057#3895#0" />
-            <element signature="e#7720#8067#0" />
-            <element signature="e#8073#8905#0" />
-            <element signature="e#8911#8973#0" />
-            <element signature="e#9198#9284#0" />
-            <element signature="e#9290#9584#0" />
-            <element signature="e#9590#11193#0" />
-            <element signature="e#11199#11915#0" />
-            <element signature="e#12162#12163#0" expanded="true" />
-            <element signature="e#12225#12226#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-326">
+          <caret line="372" selection-start-line="372" selection-end-line="372" />
         </state>
       </provider>
     </entry>

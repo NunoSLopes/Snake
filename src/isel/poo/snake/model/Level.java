@@ -389,8 +389,15 @@ public class Level {
                 }
             }else if( gameArea.get(i) instanceof Mouse){
                 if(gameArea.get(i).getC()== c && gameArea.get(i).getL()==l){
-                    observer.cellUpdated(l,c,gameArea.get(i));
                     growthLeft += MOUSEPOINTS;
+                    gameArea.add(new EmptyCell(gameArea.get(i).getL(),gameArea.get(i).getC()));
+                    for (int j = 0; j < mouseArrayList.size(); ++j) {
+                        if(mouseArrayList.get(j).getL() == gameArea.get(i).getL() && mouseArrayList.get(j).getC() == gameArea.get(i).getC())
+                            mouseArrayList.remove(mouseArrayList.get(j));
+                    }
+                    gameArea.remove(i);
+                    observer.cellUpdated(l,c,gameArea.get(i));
+                    game.addScore(MOUSEPOINTS);
                 }
             }else if( gameArea.get(i) instanceof SnakeHead && gameArea.get(i).isEvil() && !gameArea.get(i).isAlive()){
                 if(gameArea.get(i).getC()== c && gameArea.get(i).getL()==l){

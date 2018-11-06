@@ -11,10 +11,11 @@ public class SnakeHeadCellTile extends CellTile {
 
     public void paint(){
         super.paint();
-        switch (cell.getType()){
-            case '*': Console.color(Console.BLACK,Console.DARK_GRAY);
-            default: Console.color(Console.BLACK,Console.YELLOW);
-        }
+
+        if (cell.isEvil())
+            Console.color(Console.BLACK,Console.DARK_GRAY);
+        else
+            Console.color(Console.BLACK,Console.YELLOW);
 
         print(0, 0, cell.getType());
 
