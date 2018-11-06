@@ -172,7 +172,7 @@ public class Window {
         private int value = 20;
         private CounterView() { super(2,2,3,8,GREEN); repaint(); }
         @Override public void paint() { print(1,1,"val="+value); }
-    };
+    }
 
     private static void count(CounterView cv, int delta) {
         for (int i = 0; i < 10; i++) {

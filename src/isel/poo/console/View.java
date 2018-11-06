@@ -74,7 +74,7 @@ public class View {
      * Implementations of this method must call the {@link #cursor(int,int)} or {@link #print(int,int,char)} methods
      * inherited from View to write the content.
      */
-    public void paint() { };
+    public void paint() { }
 
     /**
      * Clears the entire View area.

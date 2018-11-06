@@ -11,11 +11,10 @@ public abstract class Cell implements CreateTile {
     protected boolean isEvil;
     protected boolean isAlive;
     protected Position position;
-    public int snakeSize;
 
     protected Cell(int l, int c) {
-        this.c = c;
-        this.l = l;
+        Cell.c = c;
+        Cell.l = l;
     }
 
     public Cell(Position position) {
