@@ -52,4 +52,6 @@ public class FullSnake extends Cell {
     public void setGrowth(int growth) {
         this.growth += growth;
     }
+
+
 }

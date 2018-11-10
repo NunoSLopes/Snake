@@ -1,5 +1,6 @@
 package isel.poo.snake.model.Cells;
 
+import isel.poo.snake.model.Dir;
 import isel.poo.snake.model.Position;
 
 public abstract class Cell{
@@ -10,6 +11,7 @@ public abstract class Cell{
     protected boolean isEvil;
     protected boolean isAlive;
     protected Position position;
+    private Dir direction = setRandomDir();
 
     protected Cell(int l, int c) {
         Cell.c = c;
@@ -94,6 +96,19 @@ public abstract class Cell{
     public boolean isAlive(){
         return isAlive;
     }
+
+    public Dir getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Dir direction) {
+        this.direction = direction;
+    }
+
+    private Dir setRandomDir() {
+        return Dir.values()[(int) (Math.random()*3) + 1];
+    }
+
 
 
 }
