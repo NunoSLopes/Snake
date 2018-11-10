@@ -1,31 +1,29 @@
 package isel.poo.snake.model;
 
 import isel.poo.snake.model.Cells.*;
-
-import java.net.SocketOption;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 
 public class Level {
 
+    private Observer observer;
     private static FullSnake fGoodSnake;
     private final int levelNumber, height, width;
-    private int growthLeft = 4, movesCounter = 0, apples = 10, mouseMove = 0, evilGrowth = 4;
-    private static final int APPLESPOINTS=4 , MOUSEPOINTS = 10, MINTAILS = 4;
-    //private Cell snakeHead;
-    //private static LinkedList<Cell> snakeBody ;
+    private int  movesCounter = 0, apples = 10, mouseMoves = 0;
+    private static final int APPLESPOINTS=4 , MOUSEPOINTS = 10;
     private ArrayList<Cell> gameArea = new ArrayList<>();
-    private ArrayList<Cell> mouseArrayList = new ArrayList<>();
+    private ArrayList<Mouse> mouseList = new ArrayList<>();
     private ArrayList<FullSnake> evilSnakes = new ArrayList<>();
-    private Observer observer;
     private boolean snakeIsDead = false, gameEnded = false;
     private Dir snakeDirection = Dir.UP;
-    private Dir autoDir = Dir.RIGHT;
+    private Dir autoDir = Dir.UP;
+    private Dir mouseDir = setRandomDir();
     private Game game;
     private FullSnake fEvilSnake;
 
     public Level(int levelNumber, int height, int width) {
-
         this.levelNumber = levelNumber;
         this.height = height;
         this.width = width;
@@ -48,11 +46,9 @@ public class Level {
     }
 
     public boolean isFinished() {
-
         if (getRemainingApples() == 0 )
             return true;
         else return gameEnded;
-
     }
 
     /**
@@ -72,21 +68,19 @@ public class Level {
      * @param cell Cells to be set the position
      */
 
-    public void putCell(int l, int c, Cell cell) {
+    void putCell(int l, int c, Cell cell) {
 
         cell.setPositionAt(l, c);
 
-        if (cell instanceof SnakeHead && !cell.isEvil()) fGoodSnake = new FullSnake(cell, false);
-
+        if (cell instanceof SnakeHead && !cell.isEvil())
+            fGoodSnake = new FullSnake((SnakeHead) cell, false);
         if (cell instanceof SnakeHead && cell.isEvil()){
-            fEvilSnake = new FullSnake(cell, true);
+            fEvilSnake = new FullSnake((SnakeHead)cell, true);
             evilSnakes.add(fEvilSnake);
         }
-
-        if (cell instanceof Mouse) mouseArrayList.add(cell);
+        if (cell instanceof Mouse) mouseList.add((Mouse) cell); //TODO: observar o cast
 
         gameArea.add(cell);
-
     }
 
     /**
@@ -114,191 +108,110 @@ public class Level {
      */
 
     public void setSnakeDirection(Dir dir) {
-        if(
-                ((snakeDirection.equals(Dir.UP) || snakeDirection.equals(Dir.DOWN)) &&
-                (dir.equals(Dir.LEFT)||dir.equals(Dir.RIGHT))
-                ) ||
-                ((snakeDirection.equals(Dir.LEFT) || snakeDirection.equals(Dir.RIGHT)) &&
-                (dir.equals(Dir.DOWN)||dir.equals(Dir.UP))
-                )
-        ) snakeDirection = dir;
-
-
+         snakeDirection = dir;
     }
 
-    public boolean moveSnake(){
-        Position oldPos = fGoodSnake.snakeHead.getPosition(); //get Head Position
-        int newPosL = fGoodSnake.snakeHead.getL()+snakeDirection.l;
-        int newPosC = fGoodSnake.snakeHead.getC()+snakeDirection.c;
+    public void step() {
 
-        Position newPos = checkLimits(newPosL,newPosC);
-
-         //calculate new position
-        if (!checkCollision(newPos)){
-            fGoodSnake.snakeHead.setPositionAt(newPos); //set new position
-            observer.cellMoved(oldPos.l, oldPos.c, newPos.l, newPos.c, fGoodSnake.snakeHead); //call observer
-            addTail(oldPos); //
+        Position oldPos = fGoodSnake.getPosition();
+        Position newPos = checkMovement(snakeDirection, fGoodSnake);
+        if (!checkCollision(newPos)) {
+            fGoodSnake.walk(newPos);
+            observer.cellMoved(oldPos.l, oldPos.c, fGoodSnake.getL(), fGoodSnake.getC(), fGoodSnake); //call observer
+            observer.cellCreated(oldPos.l, oldPos.c, fGoodSnake.addBody(oldPos)); //
+            int food = checkFood(fGoodSnake.snakeHead.getPosition());
+            fGoodSnake.setGrowth(food);
+            game.addScore(food);
+            if (fGoodSnake.getGrowth() <= 0) {
+                deletedLast(fGoodSnake);
+            }
+            fGoodSnake.setGrowth(fGoodSnake.getGrowth() > 0 ? -1:0);
             ++movesCounter;
-            ++mouseMove;
-            return true;
+            ++mouseMoves;
+
         } else {
             fGoodSnake.snakeHead = new SnakeHead(false, false);
             fGoodSnake.snakeHead.setPositionAt(oldPos);
             observer.cellCreated(oldPos.l, oldPos.c, fGoodSnake.snakeHead);
-            return false;
+            snakeIsDead = true;
+            gameEnded = true;
         }
 
-    }
-
-    public void addTail(Position position){
-        Cell tail = new SnakeTail(position);
-        fGoodSnake.addBody(tail);
-        observer.cellCreated(position.l, position.c, tail);
-    }
-
-
-    public void step() {
-
-        if (evilSnakes != null) {
-            autoSnakeStep();
-
-        }
-
-        if (mouseArrayList != null && mouseMove == 4){
-            for (Cell mouse: mouseArrayList) {
-                autoMouseStep(mouse);
-            }
-            mouseMove = 0;
-        }
-
-        if (!checkCollision(fGoodSnake.snakeHead.getPosition())) {
-            if(moveSnake()) {
-                checkFood(fGoodSnake.snakeHead.getPosition());
-                if (growthLeft <= 0) {
-                    deletedLast(fGoodSnake);
-                }
-
-                growthLeft = growthLeft > 0 ? --growthLeft : 0;
-            }else {
-                snakeIsDead = true;
-                gameEnded = true;
-
-            }
-        }
-
-        if(movesCounter == 10){
+        if(movesCounter == 10 && !snakeIsDead){
             movesCounter = 0;
             game.addScore(-1);
             snakeIsDead = deletedLast(fGoodSnake);
         }
 
-    }
 
-    private void autoMouseStep(Cell mouse) {
+        if (mouseList != null && mouseMoves == 4) {
 
-        boolean hasStepped = false;
+            for (Mouse mouse : mouseList) {
+                ArrayList<Dir> directions = new ArrayList<>(Arrays.asList(Dir.DOWN, Dir.UP, Dir.LEFT, Dir.RIGHT));
+                oldPos = mouse.getPosition();
+                newPos = checkMovement(mouseDir, mouse);
+                while (true) {
+                    if (checkCollision(newPos)) {
+                        directions.remove(mouseDir);
+                        Collections.shuffle(directions);
+                        mouseDir = directions.get(0);
+                        newPos = checkMovement(mouseDir, mouse);
 
-        do {
-            int randomDir = (int) (Math.random()*40)/10;
-            Position oldPos = mouse.getPosition(); //get Head Position
-            System.out.println("MOUSE OldL" + oldPos.l + " & autoDirL=" + autoDir.l);
-            int newPosL = oldPos.l + autoDir.l;
-            System.out.println("MOUSE OldC" + oldPos.c + " & autoDirC=" + autoDir.c);
-            int newPosC = oldPos.c + autoDir.c;
-            System.out.println("  ");
-            System.out.println("MOUSE C=" + newPosC + " & L=" + newPosL);
-
-            Position newPos = checkLimits(newPosL, newPosC); //calculate new position
-
-            if (!checkCollision(newPos)) {
-                mouse.setPositionAt(newPos); //set new position
-                observer.cellMoved(oldPos.l, oldPos.c, newPos.l, newPos.c, mouse); //call observer
-                hasStepped = true;
-            } else {
-                autoDir = randomDirection(randomDir);
-
-                if (autoDir == null)
-                    hasStepped = true;
-            }
-        }while (!hasStepped);
-
-    }
-
-    private Position checkLimits(int newPosL, int newPosC){
-        if (newPosL < 0) newPosL = height-1;
-        else if (newPosL > height-1) newPosL = 0;
-        else if (newPosC < 0) newPosC = width-1;
-        else if (newPosC > width-1) newPosC = 0;
-
-        return  new Position(newPosL, newPosC);
-    }
-
-    private void autoSnakeStep() {
-
-        boolean hasStepped = false;
-
-        Position newPos, oldPos;
-        for (FullSnake snake: evilSnakes) {
-            oldPos = snake.snakeHead.getPosition(); //get Head Position
-
-            do {
-
-
-                System.out.println("SNAKE OldL" + oldPos.l + " & autoDirL=" + autoDir.l);
-                int newPosL = oldPos.l + autoDir.l;
-                System.out.println("  ");
-                System.out.println("SNAKE OldC" + oldPos.c + " & autoDirC=" + autoDir.c);
-                int newPosC = oldPos.c + autoDir.c;
-                System.out.println("  ");
-                System.out.println("SNAKE C=" + newPosC + " & L=" + newPosL);
-
-                newPos = checkLimits(newPosL, newPosC); //calculate new position
-                if (!checkCollision(newPos)) {
-                    snake.snakeHead.setPositionAt(newPos); //set new position
-                    observer.cellMoved(oldPos.l, oldPos.c, newPos.l, newPos.c, snake); //call observer
-                    snake.addBody(newPos); //
-                    observer.cellCreated(newPosL,newPosC,new SnakeTail());
-                    checkFood(snake.snakeHead.getPosition());
-                    if (evilGrowth <= 0)
-                        deletedLast(snake);
-
-                    evilGrowth = evilGrowth > 0 ? --evilGrowth : 0;
-                    hasStepped = true;
-                } else {
-                    int counter = (int) (Math.random()*40)/10;
-                    autoDir = randomDirection(counter);
-
-                    if ( counter <= 0 && counter > 4)
-                        autoDir = Dir.RIGHT;
-                    else if (autoDir == null) {
+                    } else {
                         break;
                     }
                 }
-            } while (!hasStepped);
-
-            if (!hasStepped) {
-
-                fEvilSnake.snakeHead = new SnakeHead(true, false);
-                fEvilSnake.snakeHead.setPositionAt(oldPos);
-                observer.cellCreated(oldPos.l, oldPos.c, fEvilSnake.snakeHead);
-
+                mouse.setPositionAt(newPos);
+                observer.cellMoved(oldPos.l, oldPos.c, mouse.getL(), mouse.getC(), mouse);
             }
+            mouseMoves = 0;
+        }
+
+
+        if (evilSnakes != null) {
+            for (FullSnake snake: evilSnakes) {
+                if (snake.snakeHead.isAlive()) {
+                    ArrayList<Dir> directions = new ArrayList<>(Arrays.asList(Dir.DOWN, Dir.UP, Dir.LEFT, Dir.RIGHT));
+                    oldPos = snake.getPosition();
+                    newPos = checkMovement(autoDir, snake);
+                    while (checkCollision(newPos)) {
+                        if (directions.size()>1) {
+                            directions.remove(autoDir);
+                            Collections.shuffle(directions);
+                            autoDir = directions.get(0);
+                            newPos = checkMovement(autoDir, snake);
+
+                        } else {
+                            //snake.snakeHead = new SnakeHead(true, false);
+                            //snake.snakeHead.setPositionAt(oldPos);
+                            snake.kill();
+                            observer.cellUpdated(oldPos.l, oldPos.c, snake.snakeHead);
+
+                            break;
+                        }
+                    }
+
+                     if (snake.snakeHead.isAlive()) {
+
+                        if (!oldPos.comparePos(newPos)) {
+                            snake.walk(newPos);
+                            observer.cellMoved(oldPos.l, oldPos.c, snake.getL(), snake.getC(), snake); //call observer
+                            observer.cellCreated(oldPos.l, oldPos.c, snake.addBody(oldPos));
+                            snake.setGrowth(checkFood(snake.snakeHead.getPosition()));
+                            if (snake.getGrowth() <= 0) deletedLast(snake);
+                            snake.setGrowth(snake.getGrowth() > 0 ? -1:0);
+                        }
+                    }
+                } else {
+                    deletedLast(snake);
+                }
+            }
+
         }
     }
 
-    private Dir randomDirection(int choose) {
-
-        switch(choose){
-            case 1 : return Dir.UP;
-
-            case 2 : return Dir.LEFT;
-
-            case 3 : return Dir.DOWN;
-
-            case 4 : return Dir.RIGHT;
-
-            default: return null;
-        }
+    private Dir setRandomDir() {
+        return Dir.values()[(int) (Math.random()*3) + 1];
     }
 
     private boolean deletedLast(FullSnake snake) {
@@ -307,9 +220,9 @@ public class Level {
             Cell deleted = snake.removeBody(); //remove last tail
             observer.cellRemoved(deleted.getL(), deleted.getC());
         }
-        if (snake.snakeBody.size() == 0) {
+        if (snake.snakeBody.size() == 0 && movesCounter == 0) {
 
-            gameEnded = true;
+            if(!snake.isEvil())gameEnded = true;
             return true;
 
         }
@@ -323,12 +236,10 @@ public class Level {
 
             if (gameArea.get(i) instanceof Obstacle) {
                 if (gameArea.get(i).getC() == pos.c && gameArea.get(i).getL() == pos.l) {
-                    snakeIsDead = true;
                     return true;
                 }
-            } else if (gameArea.get(i) instanceof FullSnake && gameArea.get(i).isEvil() && gameArea.get(i).isAlive()) {
+            } else if (gameArea.get(i) instanceof SnakeHead && gameArea.get(i).isAlive()) {
                 if (gameArea.get(i).getC() == pos.c && gameArea.get(i).getL() == pos.l) {
-                    snakeIsDead = true;
                     return true;
                 }
             }
@@ -338,9 +249,11 @@ public class Level {
             if (tail.getPosition().c == pos.c && tail.getPosition().l == pos.l ) return true;
         }
 
-        /*for (Cell tail: fEvilSnake.snakeBody) {
-            if (tail.getPosition().c == pos.c && tail.getPosition().l == pos.l ) return true;
-        }*/
+        for (FullSnake snake: evilSnakes) {
+            for (Cell tail: snake.snakeBody) {
+                if (tail.getPosition().c == pos.c && tail.getPosition().l == pos.l ) return true;
+            }
+        }
 
         return false;
     }
@@ -382,21 +295,19 @@ public class Level {
         void applesUpdated(int apples);
     }
 
-    private void checkFood(Position pos){
+    private int checkFood(Position pos){
 
         int c = pos.c;
         int l = pos.l;
+        int growth = 0;
 
         for(int i = 0 ; i < gameArea.size(); ++i){
             if (gameArea.get(i) instanceof Apple){
                 if(gameArea.get(i).getC()== c && gameArea.get(i).getL()==l){
                     --apples;
                     observer.applesUpdated(apples);
-                    observer.cellUpdated(l,c, gameArea.get(i));
-                    growthLeft += APPLESPOINTS;
+                    growth += APPLESPOINTS;
                     gameArea.add(new EmptyCell(gameArea.get(i).getL(),gameArea.get(i).getC()));
-                    gameArea.remove(i);
-                    game.addScore(APPLESPOINTS);
                     movesCounter = 0;
                     if(apples >= 4) {
                         Cell newApple = new Apple(addNewApple());
@@ -406,24 +317,25 @@ public class Level {
                 }
             }else if( gameArea.get(i) instanceof Mouse){
                 if(gameArea.get(i).getC()== c && gameArea.get(i).getL()==l){
-                    growthLeft += MOUSEPOINTS;
+                    growth += MOUSEPOINTS;
                     gameArea.add(new EmptyCell(gameArea.get(i).getL(),gameArea.get(i).getC()));
-                    for (int j = 0; j < mouseArrayList.size(); ++j) {
-                        if(mouseArrayList.get(j).getL() == gameArea.get(i).getL() && mouseArrayList.get(j).getC() == gameArea.get(i).getC())
-                            mouseArrayList.remove(mouseArrayList.get(j));
+                    for (int j = 0; j < mouseList.size(); ++j) {
+                        if(mouseList.get(j).getL() == gameArea.get(i).getL() && mouseList.get(j).getC() == gameArea.get(i).getC())
+                            mouseList.remove(mouseList.get(j));
                     }
-                    gameArea.remove(i);
-                    observer.cellUpdated(l,c,gameArea.get(i));
-                    game.addScore(MOUSEPOINTS);
-                }
-            }else if( gameArea.get(i) instanceof SnakeHead && gameArea.get(i).isEvil() && !gameArea.get(i).isAlive()){
-                if(gameArea.get(i).getC()== c && gameArea.get(i).getL()==l){
 
                     observer.cellUpdated(l,c,gameArea.get(i));
-                    growthLeft += (10+(2* fGoodSnake.getSnakeSize()));
+                }
+            }else if( gameArea.get(i) instanceof SnakeHead && !gameArea.get(i).isAlive()){
+                if(gameArea.get(i).getC()== c && gameArea.get(i).getL()==l){
+                    for(FullSnake snake: evilSnakes){
+                        if (snake.getPosition() == pos) growth += 10 + 2*snake.getBodySize();
+                    }
+                    observer.cellUpdated(l,c,gameArea.get(i));
                 }
             }
         }
+        return growth;
     }
 
     private Position addNewApple() {
@@ -452,5 +364,21 @@ public class Level {
 
     public static int setSize(){
         return fGoodSnake.snakeBody == null ? 0 : fGoodSnake.snakeBody.size();
+    }
+
+    private Position checkMovement(Dir dir, Cell cell) {
+
+        Position oldPos = cell.getPosition(); //get Head Position
+        int newPosL = oldPos.l + dir.l;
+        int newPosC = oldPos.c + dir.c;
+
+        if (newPosL < 0) newPosL = height-1;
+        else if (newPosL > height-1) newPosL = 0;
+        else if (newPosC < 0) newPosC = width-1;
+        else if (newPosC > width-1) newPosC = 0;
+
+        Position newPos = new Position(newPosL, newPosC);
+
+        return !newPos.comparePos(oldPos) ? newPos : oldPos;
     }
 }

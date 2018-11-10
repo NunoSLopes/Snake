@@ -1,8 +1,7 @@
 package isel.poo.snake.model.Cells;
 
 import isel.poo.snake.model.Position;
-import isel.poo.snake.view.Tiles.CellTile;
-import isel.poo.snake.view.Tiles.ObstacleTile;
+
 
 public class Obstacle extends Cell {
     protected final char type = 'X';
@@ -16,7 +15,4 @@ public class Obstacle extends Cell {
         return type;
     }
 
-    public CellTile createTile() {
-        return new ObstacleTile(this);
-    }
 }

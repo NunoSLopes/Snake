@@ -3,9 +3,9 @@ package isel.poo.snake.view.Tiles;
 import isel.leic.pg.Console;
 import isel.poo.snake.model.Cells.Cell;
 
-public class SnakeHeadCellTile extends CellTile {
+public class SnakeHeadTile extends CellTile {
 
-    public SnakeHeadCellTile(Cell cell) {
+    public SnakeHeadTile(Cell cell) {
         super(cell);
     }
 

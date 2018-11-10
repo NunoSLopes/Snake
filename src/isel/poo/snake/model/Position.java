@@ -1,5 +1,6 @@
 package isel.poo.snake.model;
 
+
 public final class Position {
 
     public final int l, c;
@@ -13,5 +14,11 @@ public final class Position {
         this.c = c;
         this.l = l;
     }
+
+    public boolean comparePos(Position pos) {
+        return this.c == pos.c && this.l == pos.l;
+    }
+
+
 
 }

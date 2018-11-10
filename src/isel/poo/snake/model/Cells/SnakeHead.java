@@ -1,8 +1,6 @@
 package isel.poo.snake.model.Cells;
 
 import isel.poo.snake.model.*;
-import isel.poo.snake.view.Tiles.CellTile;
-import isel.poo.snake.view.Tiles.SnakeHeadCellTile;
 
 
 public class SnakeHead extends Cell {
@@ -15,21 +13,20 @@ public class SnakeHead extends Cell {
         isAlive = alive;
 
         if(evil) {
-            type = '*';
+            type = alive ? '*' : 'X';;
         }else {
             type = alive ? '@' : 'X';
         }
     }
 
+
     public SnakeHead(Position position){
         super(position);
+
     }
 
     public char getType(){
         return type;
     }
 
-    public CellTile createTile() {
-       return new SnakeHeadCellTile(this);
-    }
 }

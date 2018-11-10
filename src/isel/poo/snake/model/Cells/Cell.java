@@ -1,9 +1,8 @@
 package isel.poo.snake.model.Cells;
 
-import isel.poo.snake.model.CreateTile;
 import isel.poo.snake.model.Position;
 
-public abstract class Cell implements CreateTile {
+public abstract class Cell{
 
     protected static int l;
     protected static int c;
@@ -32,7 +31,7 @@ public abstract class Cell implements CreateTile {
 
             case 'X' : return new Obstacle();
 
-            case 'M' : return new Mouse();
+            case 'M' : return new Mouse(true);
 
             case '@' : return new SnakeHead(false, true);
 
@@ -95,5 +94,6 @@ public abstract class Cell implements CreateTile {
     public boolean isAlive(){
         return isAlive;
     }
+
 
 }
