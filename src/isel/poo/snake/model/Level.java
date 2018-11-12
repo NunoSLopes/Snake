@@ -1,9 +1,7 @@
 package isel.poo.snake.model;
 
 import isel.poo.snake.model.Cells.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
 
 
 public class Level {
@@ -36,7 +34,7 @@ public class Level {
         return width;
     }
 
-    public int getNumber() {
+    public int getLevelNumber() {
         return levelNumber;
     }
 
@@ -67,7 +65,7 @@ public class Level {
      * @param cell Cells to be set the position
      */
 
-    void putCell(int l, int c, Cell cell) {
+    public void putCell(int l, int c, Cell cell) {
 
         cell.setPositionAt(l, c);
         gameArea.add(cell);
@@ -95,9 +93,9 @@ public class Level {
 
     public Cell getCell(int l, int c) {
 
-        for( int i = 0; i < gameArea.size(); ++i){
-            if (gameArea.get(i).getL() == l && gameArea.get(i).getC() == c){
-                return gameArea.get(i);
+        for (Cell aGameArea : gameArea) {
+            if (aGameArea.getL() == l && aGameArea.getC() == c) {
+                return aGameArea;
             }
         }
         return new EmptyCell(l,c);
@@ -228,14 +226,14 @@ public class Level {
 
     private boolean checkCollision(int l, int c) {
 
-        for(int i = 0 ; i < gameArea.size(); ++i) {
+        for (Cell aGameArea : gameArea) {
 
-            if (gameArea.get(i) instanceof Obstacle) {
-                if (gameArea.get(i).getPosition().comparePos(l,c)) {
+            if (aGameArea instanceof Obstacle) {
+                if (aGameArea.getPosition().comparePos(l, c)) {
                     return true;
                 }
-            } else if (gameArea.get(i) instanceof SnakeHead && gameArea.get(i).isAlive()) {
-                if (gameArea.get(i).getPosition().comparePos(l,c)) {
+            } else if (aGameArea instanceof SnakeHead && aGameArea.isAlive()) {
+                if (aGameArea.getPosition().comparePos(l, c)) {
                     return true;
                 }
             }
@@ -254,10 +252,28 @@ public class Level {
         return false;
     }
 
+    private boolean checkFoodCollision(int l, int c){
+
+        for (Cell aGameArea : gameArea) {
+
+            if (aGameArea instanceof Apple) {
+                if (!aGameArea.getPosition().comparePos(l, c)) {
+                    return false;
+                }
+            } else if (aGameArea instanceof Mouse) {
+                if (!aGameArea.getPosition().comparePos(l, c)) {
+                    return false;
+                }
+            }
+
+        }
+        return true;
+    }
+
     /**
      * Initiate the game
      *
-     * @param game
+     * @param @game
      */
     public void init(Game game) {
 
@@ -331,7 +347,9 @@ public class Level {
             isEmpty = true;
             newL = (int) (Math.random() * this.height);
             newC = (int) (Math.random() * this.width);
-            if(checkCollision(newL, newC)) isEmpty = false;
+            if(checkCollision(newL, newC) ) isEmpty = false;
+            if (checkFoodCollision(newL,newC)) isEmpty = false;
+
         }while (!isEmpty);
 
         return new Position(newL, newC);

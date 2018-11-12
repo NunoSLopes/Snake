@@ -77,7 +77,7 @@ public class Snake {
         view = new TilePanel(height,width,CellTile.SIDE);               // Create view for cells
         win.clear();                                                    // Clear area of previous level
         view.center(WIN_HEIGHT,WIN_WIDTH);                              // Center view in area
-        status.setLevel(level.getNumber());                             // Update status View
+        status.setLevel(level.getLevelNumber());                             // Update status View
         status.setApples(level.getRemainingApples());
         status.setScore(model.getScore());
         for (int l = 0; l < height; l++)                                // Create each tile for each cell

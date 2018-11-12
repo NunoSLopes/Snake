@@ -12,6 +12,7 @@ public class Apple extends Cell {
 
     public Apple(Position position) {
         super(position);
+        System.out.println("line: " + position.l + " Column: "+ position.c);
     }
 
     public Apple(int l, int c) {
