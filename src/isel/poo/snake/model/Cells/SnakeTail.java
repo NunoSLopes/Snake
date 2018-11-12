@@ -7,7 +7,7 @@ public class SnakeTail extends Cell {
     protected final char type = '#';
 
     public SnakeTail(int l, int c){
-        super(new Position(l,c));
+        this(new Position(l,c));
     }
 
     public SnakeTail(Position position) {

@@ -19,6 +19,9 @@ public final class Position {
         return this.c == pos.c && this.l == pos.l;
     }
 
+    public boolean comparePos(int l, int c) {
+        return this.c == c && this.l == l;
+    }
 
 
 }

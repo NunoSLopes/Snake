@@ -10,7 +10,7 @@ public class MouseTile extends CellTile {
 
     public void paint(){
         super.paint();
-        Console.color(Console.BLACK,Console.BLUE);
+        Console.color(Console.BLUE,Console.LIGHT_GRAY);
         print(0, 0, cell.getType());
 
     }

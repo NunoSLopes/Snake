@@ -5,24 +5,30 @@ import isel.poo.snake.model.Position;
 
 public abstract class Cell{
 
-    protected static int l;
-    protected static int c;
+    protected int l;
+    protected int c;
     protected char type;
     protected boolean isEvil;
     protected boolean isAlive;
     protected Position position;
-    private Dir direction = setRandomDir();
+    private Dir direction = randomDir() ;
 
-    protected Cell(int l, int c) {
-        Cell.c = c;
-        Cell.l = l;
+
+    public Cell() {
+        setRandomDir();
+    }
+
+    public Cell(int l, int c) {
+        this(new Position(l,c));
     }
 
     public Cell(Position position) {
+        if (position == null) {
+            throw new IllegalArgumentException();
+        }
         this.position = position;
-    }
-
-    public Cell() {
+        this.l = position.l;
+        this.c = position.c;
 
     }
 
@@ -33,7 +39,7 @@ public abstract class Cell{
 
             case 'X' : return new Obstacle();
 
-            case 'M' : return new Mouse(true);
+            case 'M' : return new Mouse();
 
             case '@' : return new SnakeHead(false, true);
 
@@ -49,7 +55,7 @@ public abstract class Cell{
      * @return the horizontal coordinate.
      */
     public int getC() {
-        return position.c;
+        return c;
     }
 
     /**
@@ -57,7 +63,7 @@ public abstract class Cell{
      * @return the vertical coordinate.
      */
     public int getL() {
-        return position.l;
+        return l;
     }
 
     /**
@@ -74,19 +80,21 @@ public abstract class Cell{
      */
     public void setPositionAt(Position position) {
         this.position = position;
+        this.l = position.l;
+        this.c = position.c;
     }
 
     /**
      * Changes the element position.
-     * @param x the new horizontal coordinate.
-     * @param y the new vertical coordinate.
+     * @param c the new horizontal coordinate.
+     * @param l the new vertical coordinate.
      */
-    public void setPositionAt(int x, int y) {
-        setPositionAt(new Position(x, y));
+    public void setPositionAt(int l, int c) {
+        setPositionAt(new Position(l, c));
     }
 
     public char getType() {
-        return type;
+        return this.type;
     }
 
     public boolean isEvil(){
@@ -105,10 +113,12 @@ public abstract class Cell{
         this.direction = direction;
     }
 
-    private Dir setRandomDir() {
-        return Dir.values()[(int) (Math.random()*3) + 1];
+    public void setRandomDir() {
+        direction = randomDir();
     }
 
-
+    private Dir randomDir() {
+        return Dir.values()[(int) (Math.random()*3) + 1];
+    }
 
 }

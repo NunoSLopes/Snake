@@ -8,7 +8,7 @@ import java.util.LinkedList;
 public class FullSnake extends Cell {
 
     public SnakeHead snakeHead;
-    public LinkedList<Cell> snakeBody = new LinkedList<>();
+    public LinkedList<SnakeTail> snakeBody = new LinkedList<>();
 
     private int growth = 4;
 
@@ -27,12 +27,12 @@ public class FullSnake extends Cell {
 
 
     public Cell addBody(Position pos) {
-        Cell newTail = new SnakeTail(pos);
+        SnakeTail newTail = new SnakeTail(pos);
         snakeBody.addFirst(newTail);
         return newTail;
     }
 
-    public Cell removeBody(){
+    public SnakeTail removeBody(){
         return snakeBody.removeLast();
     }
 

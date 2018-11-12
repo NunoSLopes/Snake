@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Game {
     private final InputStream input;
     private int score = 0;
-    private int levelNumber = 1;
+    private int levelNumber = 0;
     private Level curLevel = null;
     private Listener listener = null;
 

@@ -6,16 +6,16 @@ public class Apple extends Cell {
 
     protected final char type = 'A';
 
-    protected Apple(int l, int c) {
-        super(new Position(l,c));
-    }
-
-    protected Apple() {
+    public Apple() {
         super();
     }
 
     public Apple(Position position) {
-        this.position = position;
+        super(position);
+    }
+
+    public Apple(int l, int c) {
+        super(l,c);
     }
 
     public char getType(){
